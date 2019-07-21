@@ -1,11 +1,12 @@
 ---
 - hosts: localhost
   become: true
-  tasks:
+  pre_tasks:
     - name: Ensure RPM is installed
       package:
         name: rpm
         state: latest
+  tasks:
     - name: Add VSCode RPM key
       rpm_key:
         key: https://packages.microsoft.com/keys/microsoft.asc
