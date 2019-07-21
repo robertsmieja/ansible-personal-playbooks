@@ -1,13 +1,31 @@
 ---
 - hosts: localhost
-  become: true
   pre_tasks:
     - name: Ensure curl is installed
+      become: true
       package: 
         name: curl
         state: latest
   tasks:
+    - name: Install Python 2 system packages
+      become: true
+      package: 
+        name: "{{ item }}"
+        state: latest
+      loop:
+          - python
+          - python-pip
+          - python-virtualenv 
+    - name: Install Python 2 Pip packages
+      pip: 
+        executable: pip
+        extra_args: --user
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - virtualenvwrapper
     - name: Install Python 3 system packages
+      become: true
       package: 
         name: "{{ item }}"
         state: latest
@@ -17,6 +35,7 @@
           - python3-virtualenv
     - name: Install Python 3 Pip packages
       pip: 
+        executable: pip3
         extra_args: --user
         name: "{{ item }}"
         state: latest
@@ -24,14 +43,12 @@
         - virtualenvwrapper
     - name: Add VirtualEnvWrapper Python to .bash_profile
       lineinfile:
-        backup: true
         create: true
         line: export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
         path: "{{ lookup('env','HOME') }}/.bash_profile"
         state: present
     - name: Add VirtualEnvWrapper to .bash_profile
       lineinfile:
-        backup: true
         create: true
         line: "source $HOME/.local/bin/virtualenvwrapper.sh"
         path: "{{ lookup('env','HOME') }}/.bash_profile"
@@ -51,7 +68,9 @@
           path: "{{ lookup('env','HOME') }}/.bash_profile"
           state: present
       - name: Add Poetry to bash_completion
-        shell: poetry completions bash > /etc/bash_completion.d/poetry.bash-completion
+        shell: |
+          "source {{ lookup('env','HOME') }}/.poetry/env"
+          poetry completions bash > /etc/bash_completion.d/poetry.bash-completion
         args:
           creates: /etc/bash_completion.d/poetry.bash-completion
           warn: false
