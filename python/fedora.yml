@@ -17,12 +17,36 @@
           - python3-virtualenv
     - name: Install Python 3 Pip packages
       pip: 
+        extra_args: --user
         name: "{{ item }}"
         state: latest
       loop:
         - virtualenvwrapper
-    - name: Install Poetry
-      shell: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
-      args:
-        creates: "{{ lookup('env','HOME') }}/.poetry/bin"
-        warn: false
+    # - name: Add VirtualEnvWrapper to .bash_profile
+    #   lineinfile:
+    #     backup: true
+    #     create: true
+    #     line: export VIRTUALENVWRAPPER_PYTHON="python3"
+    #     path: "{{ lookup('env','HOME') }}/.bash_profile"
+    #     state: present
+    - name: Add VirtualEnvWrapper to .bash_profile
+      lineinfile:
+        backup: true
+        create: true
+        line: "source $HOME/.local/bin/virtualenvwrapper.sh"
+        path: "{{ lookup('env','HOME') }}/.bash_profile"
+        state: present
+    - name: Poetry
+      block:
+      - name: Install Poetry
+        shell: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+        args:
+          creates: "{{ lookup('env','HOME') }}/.poetry/bin"
+          warn: false
+      - name: Add Poetry to .bash_profile
+        lineinfile: 
+          backup: true
+          create: true
+          line: export PATH="${HOME}/.poetry/bin:${PATH}"
+          path: "{{ lookup('env','HOME') }}/.bash_profile"
+          state: present
