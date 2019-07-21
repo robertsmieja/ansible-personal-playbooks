@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  become: true
+  pre_tasks:
+  tasks:
+    - name: Install XRDP
+      package:
+        name: xrdp
+        state: latest
+    - name: Configure XRDP Service
+      service:
+        enabled: true
+        name: xrdp
+        state: started
+    - name: Configure firewalld for XRDP
+      firewalld:
+        immediate: true
+        permanent: true
+        port: 3389/tcp
+        state: enabled
