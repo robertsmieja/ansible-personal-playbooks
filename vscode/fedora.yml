@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Ensure RPM is installed
+      package:
+        name: rpm
+        state: latest
+    - name: Add VSCode RPM key
+      rpm_key:
+        key: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+    - name: Add VSCode Repository
+      ini_file:
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+        path: /etc/yum.repos.d/vscode.repo
+        section: code
+        state: present
+      loop: 
+        - { option: name, value: Visual Studio Code}
+        - { option: baseurl, value: "https://packages.microsoft.com/yumrepos/vscode" }
+        - { option: enabled, value: 1}
+        - { option: gpgcheck, value: 1}
+        - { option: gpgkey, value: 1}
+    - name: Install VSCode
+      package: 
+        name: code
+        state: latest
+        update_cache: true
