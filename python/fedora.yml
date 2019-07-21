@@ -22,13 +22,13 @@
         state: latest
       loop:
         - virtualenvwrapper
-    # - name: Add VirtualEnvWrapper to .bash_profile
-    #   lineinfile:
-    #     backup: true
-    #     create: true
-    #     line: export VIRTUALENVWRAPPER_PYTHON="python3"
-    #     path: "{{ lookup('env','HOME') }}/.bash_profile"
-    #     state: present
+    - name: Add VirtualEnvWrapper Python to .bash_profile
+      lineinfile:
+        backup: true
+        create: true
+        line: export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
+        path: "{{ lookup('env','HOME') }}/.bash_profile"
+        state: present
     - name: Add VirtualEnvWrapper to .bash_profile
       lineinfile:
         backup: true
