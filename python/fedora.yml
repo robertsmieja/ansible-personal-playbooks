@@ -22,7 +22,7 @@
       loop:
         - virtualenvwrapper
     - name: Install Poetry
-      shell: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+      shell: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
       args:
         creates: "{{ lookup('env','HOME') }}/.poetry/bin"
         warn: false
