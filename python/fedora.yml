@@ -39,7 +39,7 @@
     - name: Poetry
       block:
       - name: Install Poetry
-        shell: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+        shell: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3 - -y
         args:
           creates: "{{ lookup('env','HOME') }}/.poetry/bin"
           warn: false
@@ -47,6 +47,11 @@
         lineinfile: 
           backup: true
           create: true
-          line: export PATH="${HOME}/.poetry/bin:${PATH}"
+          line: export PATH="$HOME/.poetry/bin:$PATH"
           path: "{{ lookup('env','HOME') }}/.bash_profile"
           state: present
+      - name: Add Poetry to bash_completion
+        shell: poetry completions bash > /etc/bash_completion.d/poetry.bash-completion
+        args:
+          creates: /etc/bash_completion.d/poetry.bash-completion
+          warn: false
