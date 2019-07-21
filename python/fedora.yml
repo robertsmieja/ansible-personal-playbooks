@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Install Python 3 system packages
+      package: 
+        name: "{{ item }}"
+        state: latest
+      loop:
+          - python3
+          - python3-pip
+          - python3-virtualenv
+    - name: Install Python 3 Pip packages
+      pip: 
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - virtualenvwrapper
+    - name: Install Poetry
+      shell: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+      args:
+        creates: "{{ lookup('env','HOME') }}/.poetry/bin"
+        warn: false
