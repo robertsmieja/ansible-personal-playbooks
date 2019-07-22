@@ -13,3 +13,19 @@
  ansible-playbook python/fedora.yml
  ansible-playbook vscode/fedora.yml
  ```
+
+## Linting
+
+### Pre-requisites
+ * A VirtualEnv
+
+```
+pip install -r requirements.txt
+ansible-lint **/*.yml
+```
+
+## Running a playbook inside a container
+```
+docker run --rm -it -v "$(pwd):/ansible-personal-playbooks"  --workdir "/ansible-personal-playbooks" --workdir "/ansible-personal-playbooks" --name ansible quay.io/robertsmieja/ansible-fedora-30 bash
+ansible-playbook **/*.yml # Replace with specific playbook
+```
