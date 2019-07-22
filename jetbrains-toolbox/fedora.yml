@@ -1,15 +1,16 @@
 ---
 - hosts: localhost
   pre_tasks:
-    - name: Ensure FUSE is Installed
-      package:
-        name: fuse-sshfs
-        state: present
+  #  - name: Ensure FUSE is Installed
+  #    become: true
+  #    package:
+  #      name: fuse-sshfs
+  #      state: present
   tasks:
     - name: Download and Extract JetBrains Toolbox
       unarchive:
         src: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.15.5605.tar.gz
         dest: /tmp/
-        remote_src: yes
+        remote_src: true
     - name: Launch and Install JetBrains Toolbox
       shell: /tmp/jetbrains-toolbox-1.15.5605/jetbrains-toolbox
