@@ -3,42 +3,42 @@
   pre_tasks:
     - name: Ensure curl is installed
       become: true
-      package: 
+      package:
         name: curl
-        state: latest
+        state: present
   tasks:
     - name: Install Python 2 system packages
       become: true
-      package: 
+      package:
         name: "{{ item }}"
-        state: latest
+        state: present
       loop:
           - python
           - python-pip
-          - python-virtualenv 
+          - python-virtualenv
     - name: Install Python 2 Pip packages
-      pip: 
+      pip:
         executable: pip
         extra_args: --user
         name: "{{ item }}"
-        state: latest
+        state: present
       loop:
         - virtualenvwrapper
     - name: Install Python 3 system packages
       become: true
-      package: 
+      package:
         name: "{{ item }}"
-        state: latest
+        state: present
       loop:
           - python3
           - python3-pip
           - python3-virtualenv
     - name: Install Python 3 Pip packages
-      pip: 
+      pip:
         executable: pip3
         extra_args: --user
         name: "{{ item }}"
-        state: latest
+        state: present
       loop:
         - virtualenvwrapper
     - name: Add VirtualEnvWrapper Python to .bash_profile
@@ -61,7 +61,7 @@
           creates: "{{ lookup('env','HOME') }}/.poetry/bin"
           warn: false
       - name: Add Poetry to .bash_profile
-        lineinfile: 
+        lineinfile:
           backup: true
           create: true
           line: export PATH="$HOME/.poetry/bin:$PATH"

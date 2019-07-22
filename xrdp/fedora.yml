@@ -6,7 +6,7 @@
     - name: Install XRDP
       package:
         name: xrdp
-        state: latest
+        state: present
     - name: Configure XRDP Service
       service:
         enabled: true
