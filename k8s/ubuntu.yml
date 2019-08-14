@@ -8,10 +8,18 @@
       state: present
     loop: 
     - apt-transport-https
+    - ca-certificates
     - curl
+    - gnupg-agent
+    - software-properties-common
   tasks:
+    - name: Add Kubernetes APT GPG Key
+      apt_key: 
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
     - name: Add Kubernetes APT repository
       apt_repository: 
+        filename: kubernetes
         repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
         state: present
     - name: Install Kubernetes packages
@@ -30,3 +38,29 @@
       - kubelet
       - kubeadm
       - kubectl
+    - name: Uninstall distribution Docker packages
+      package:
+        name: "{{ item }}"
+        state: absent
+      loop:
+      - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+    - name: Add Docker APT Repository GPG Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg 
+        state: present
+    - name: Add Docker APT Repository
+      apt_repository: 
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+    - name: Install Docker-CE packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
