@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  become: true
+  pre_tasks:
+  - name: Ensure packages required for APT over HTTPS are installed
+    package:
+      name: "{{ item }}"
+      state: present
+    loop: 
+    - apt-transport-https
+    - curl
+  tasks:
+    - name: Add Kubernetes APT repository
+      apt_repository: 
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+    - name: Install Kubernetes packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+      - kubelet
+      - kubeadm
+      - kubectl
+    - name: Hold Kubernetes packages to prevent automatic updates
+      dpkg_selections:
+        name: "{{ item }}"
+        selection: hold
+      loop:
+      - kubelet
+      - kubeadm
+      - kubectl
