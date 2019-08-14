@@ -64,3 +64,21 @@
       - docker-ce
       - docker-ce-cli
       - containerd.io
+    - name: Configure Docker Daemon to use systemd cgroups
+      copy:
+        dest: /etc/docker/docker.json
+        content: |
+          {
+            "exec-opts": ["native.cgroupdriver=systemd"],
+            "log-driver": "json-file",
+            "log-opts": {
+              "max-size": "100m"
+            },
+            "storage-driver": "overlay2"
+          }
+      notify: restart docker
+  handlers:
+  - name: restart docker
+    service:
+      name: docker
+      state: restarted
