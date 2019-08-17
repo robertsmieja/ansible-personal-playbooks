@@ -1,95 +1,15 @@
 ---
 - hosts: localhost
   become: true
-  pre_tasks:
-  - name: Ensure packages required for APT over HTTPS are installed
-    package:
-      name: "{{ item }}"
-      state: present
-    loop: 
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - gnupg-agent
-    - software-properties-common
-  tasks:
-    - name: Add Kubernetes APT GPG Key
-      apt_key: 
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-        state: present
-    - name: Add Kubernetes APT repository
-      apt_repository: 
-        filename: kubernetes
-        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
-        state: present
-    - name: Install Kubernetes packages
-      package:
-        name: "{{ item }}"
-        state: present
-      loop:
-      - kubelet
-      - kubeadm
-      - kubectl
-    - name: Hold Kubernetes packages to prevent automatic updates
-      dpkg_selections:
-        name: "{{ item }}"
-        selection: hold
-      loop:
-      - kubelet
-      - kubeadm
-      - kubectl
-    - name: Uninstall distribution Docker packages
-      package:
-        name: "{{ item }}"
-        state: absent
-      loop:
-      - docker
-      - docker-engine
-      - docker.io
-      - containerd
-      - runc
-    - name: Add Docker APT Repository GPG Key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg 
-        state: present
-    - name: Add Docker APT Repository
-      apt_repository: 
-        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
-        state: present
-    - name: Install Docker-CE packages
-      package:
-        name: "{{ item }}"
-        state: present
-      loop:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-    - name: Configure Docker Daemon to use systemd cgroups
-      copy:
-        dest: /etc/docker/docker.json
-        content: |
-          {
-            "exec-opts": ["native.cgroupdriver=systemd"],
-            "log-driver": "json-file",
-            "log-opts": {
-              "max-size": "100m"
-            },
-            "storage-driver": "overlay2"
-          }
-      notify: 
-      - reload docker
-      - restart docker
-    - name: Enable Docker service
-      service:
-        name: docker
-        enabled: true
-        state: started
-  handlers:
-  - name: reload docker
-    service:
-      name: docker
-      state: reloaded
-  - name: restart docker
-    service:
-      name: docker
-      state: restarted
+- name: Setup Kubeadm and Pre-requisites
+  import_playbook: kubeadm/ubuntu.yml
+- name: Use Kubeadm to configure a single-node cluster
+  import_playbook: single_node_cluster/all.yml
+# - name: Setup useful Kubernetes admin utilities like Helm
+#   import_playbook: utilities/all.yml
+- name: Apply the Calico CNI plugin 
+  import_playbook: calico/all.yml
+# - name: Apply the OpenEBS Storage plugin
+#   import_playbook: openebs/all.yml
+# - name: Apply the MetalLB LoadBalancer plugin
+#   import_playbook: metallb/all.yml

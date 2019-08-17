@@ -1,0 +1,14 @@
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Run kubeadm init
+      command: kubeadm init
+      args:
+        creates: /etc/kubernetes/manifests/*.yaml
+        warn: false
+    - name: Untaint master node
+      command: kubectl taint nodes --all node-role.kubernetes.io/master-
+      args:
+        warn: false
+      # failed_when: not (untaint.stderr is search('taint'))
+      

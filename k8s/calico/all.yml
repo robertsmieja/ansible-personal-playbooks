@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+  - name: Download base Calico 3.8 YAML
+    get_url:
+      url: https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+      dest: /tmp/k8s/calico_3.8.yml
+  - name: Update Calico POD_CIDR
+    replace:
+      path: /tmp/k8s/calico_3.8.yml
+      regex: '192\.168\.0\.0/16'
+      replace: "{{ POD_CIDR }}"
+  - name: Apply Calico to k8s Cluster
+    k8s:
+      src: /tmp/k8s/calico_3.8.yml
+      state: present
+      validate:
+        fail_on_error: true
+        strict: true
+  vars:
+    POD_CIDR: 10.244.0.0/16
