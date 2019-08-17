@@ -7,23 +7,23 @@
         name: curl
         state: present
   tasks:
-    - name: Install Python 2 system packages
-      become: true
-      package:
-        name: "{{ item }}"
-        state: present
-      loop:
-          - python
-          - python-pip
-          - python-virtualenv
-    - name: Install Python 2 Pip packages
-      pip:
-        executable: pip
-        extra_args: --user
-        name: "{{ item }}"
-        state: present
-      loop:
-        - virtualenvwrapper
+    # - name: Install Python 2 system packages
+    #   become: true
+    #   package:
+    #     name: "{{ item }}"
+    #     state: present
+    #   loop:
+    #       - python
+    #       - python-pip
+    #       - python-virtualenv
+    # - name: Install Python 2 Pip packages
+    #   pip:
+    #     executable: pip
+    #     extra_args: --user
+    #     name: "{{ item }}"
+    #     state: present
+    #   loop:
+    #     - virtualenvwrapper
     - name: Install Python 3 system packages
       become: true
       package:
@@ -48,6 +48,7 @@
         path: "{{ lookup('env','HOME') }}/.bash_profile"
         state: present
     - name: Add VirtualEnvWrapper to .bash_profile
+      become: false
       lineinfile:
         create: true
         line: "source $HOME/.local/bin/virtualenvwrapper.sh"
@@ -62,15 +63,13 @@
           warn: false
       - name: Add Poetry to .bash_profile
         lineinfile:
-          backup: true
           create: true
           line: export PATH="$HOME/.poetry/bin:$PATH"
           path: "{{ lookup('env','HOME') }}/.bash_profile"
           state: present
       - name: Add Poetry to bash_completion
-        shell: |
-          "source {{ lookup('env','HOME') }}/.poetry/env"
-          poetry completions bash > /etc/bash_completion.d/poetry.bash-completion
-        args:
-          creates: /etc/bash_completion.d/poetry.bash-completion
-          warn: false
+        lineinfile:
+          create: true
+          line: "source <(poetry completions bash)"
+          path: "{{ lookup('env','HOME') }}/.bash_profile"
+          state: present
