@@ -1,0 +1,35 @@
+#! env ansible-playbooks
+---
+- hosts: localhost
+  # become: true
+  pre_tasks:
+    - name: Ensure packages required for APT over HTTPS are installed
+      become: true
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+  tasks:
+    - name: Install required packages
+      become: true
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - git
+        - zsh
+    - name: Change default shell
+      user:
+        name: "{{ lookup('env','USER') }}"
+        shell: /bin/zsh
+    - name: Install Oh-My-ZSH
+      shell: curl -L https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
+      args:
+        creates: "{{ lookup('env','HOME') }}/.oh-my-zsh"
+        warn: false
