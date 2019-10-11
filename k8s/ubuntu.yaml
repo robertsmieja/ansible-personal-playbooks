@@ -2,14 +2,14 @@
 - hosts: localhost
   become: true
 - name: Setup Kubeadm and Pre-requisites
-  import_playbook: kubeadm/ubuntu.yml
+  import_playbook: kubeadm/ubuntu.yaml
 - name: Use Kubeadm to configure a single-node cluster
-  import_playbook: single_node_cluster/all.yml
+  import_playbook: single_node_cluster/all.yaml
 # - name: Setup useful Kubernetes admin utilities like Helm
-#   import_playbook: utilities/all.yml
-- name: Apply the Calico CNI plugin 
-  import_playbook: calico/all.yml
+#   import_playbook: utilities/all.yaml
+- name: Apply the Calico CNI plugin
+  import_playbook: calico/all.yaml
 # - name: Apply the OpenEBS Storage plugin
-#   import_playbook: openebs/all.yml
+#   import_playbook: openebs/all.yaml
 # - name: Apply the MetalLB LoadBalancer plugin
-#   import_playbook: metallb/all.yml
+#   import_playbook: metallb/all.yaml
