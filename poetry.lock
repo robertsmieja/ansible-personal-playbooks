@@ -12,11 +12,12 @@ description = "Checks playbooks for practices and behaviour that could potential
 name = "ansible-lint"
 optional = false
 python-versions = ">=3.6"
-version = "4.3.0"
+version = "4.3.1"
 
 [package.dependencies]
 ansible = ">=2.8"
 pyyaml = "*"
+rich = "*"
 
 [[package.dependencies."ruamel.yaml"]]
 python = "<3.7"
@@ -32,11 +33,68 @@ version = "*"
 
 [[package]]
 category = "dev"
+description = "Cross-platform colored terminal text."
+name = "colorama"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+version = "0.4.3"
+
+[[package]]
+category = "dev"
+description = "Python parser for the CommonMark Markdown spec"
+name = "commonmark"
+optional = false
+python-versions = "*"
+version = "0.9.1"
+
+[package.extras]
+test = ["flake8 (3.7.8)", "hypothesis (3.55.3)"]
+
+[[package]]
+category = "dev"
+description = "A backport of the dataclasses module for Python 3.6"
+marker = "python_version >= \"3.6\" and python_version < \"3.7\""
+name = "dataclasses"
+optional = false
+python-versions = ">=3.6, <3.7"
+version = "0.7"
+
+[[package]]
+category = "dev"
+description = "Pygments is a syntax highlighting package written in Python."
+name = "pygments"
+optional = false
+python-versions = ">=3.5"
+version = "2.6.1"
+
+[[package]]
+category = "dev"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "5.3"
+
+[[package]]
+category = "dev"
+description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
+name = "rich"
+optional = false
+python-versions = ">=3.6,<4.0"
+version = "5.2.1"
+
+[package.dependencies]
+colorama = ">=0.4.0,<0.5.0"
+commonmark = ">=0.9.0,<0.10.0"
+pygments = ">=2.6.0,<3.0.0"
+typing-extensions = ">=3.7.4,<4.0.0"
+
+[package.dependencies.dataclasses]
+python = ">=3.6,<3.7"
+version = ">=0.7,<0.8"
+
+[package.extras]
+jupyter = ["ipywidgets (>=7.5.1,<8.0.0)"]
 
 [[package]]
 category = "dev"
@@ -68,14 +126,13 @@ version = "0.2.0"
 [[package]]
 category = "dev"
 description = "Backported and Experimental Type Hints for Python 3.5+"
-marker = "python_version < \"3.8\""
 name = "typing-extensions"
 optional = false
 python-versions = "*"
 version = "3.7.4.2"
 
 [metadata]
-content-hash = "7e98742aa109112f0ed85f009a7ffa2b089a643152aef6c9fa0f96145de9857d"
+content-hash = "b5f3d24a2181d8621a165dec253b10fd5d2af5c734e247fff621336babe5b280"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -83,8 +140,24 @@ ansible = [
     {file = "ansible-2.9.12.tar.gz", hash = "sha256:7e95ddf719190b068fafc7d7c7877c218054cc5da4f6d9d794faf7bc66dab774"},
 ]
 ansible-lint = [
-    {file = "ansible-lint-4.3.0.tar.gz", hash = "sha256:9f311c1f94057a8231c5d7b890bb9b8a15034d26c61d69b4e730fe105073ed49"},
-    {file = "ansible_lint-4.3.0-py2.py3-none-any.whl", hash = "sha256:eebfceb961e3c1c0c7a1ae41147f0858cfb744771421fc8f404d4f6cfb5a5d3a"},
+    {file = "ansible-lint-4.3.1.tar.gz", hash = "sha256:f7de0972436ae43d2881c7c235d908e726e14647177b2439064075276279f8c4"},
+    {file = "ansible_lint-4.3.1-py2.py3-none-any.whl", hash = "sha256:7e8b71d35c9820e70bade55a72cd3dd2e7b663ba1e9827d5a654fa59c7658f37"},
+]
+colorama = [
+    {file = "colorama-0.4.3-py2.py3-none-any.whl", hash = "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff"},
+    {file = "colorama-0.4.3.tar.gz", hash = "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"},
+]
+commonmark = [
+    {file = "commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
+    {file = "commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
+]
+dataclasses = [
+    {file = "dataclasses-0.7-py3-none-any.whl", hash = "sha256:3459118f7ede7c8bea0fe795bff7c6c2ce287d01dd226202f7c9ebc0610a7836"},
+    {file = "dataclasses-0.7.tar.gz", hash = "sha256:494a6dcae3b8bcf80848eea2ef64c0cc5cd307ffc263e17cdf42f3e5420808e6"},
+]
+pygments = [
+    {file = "Pygments-2.6.1-py3-none-any.whl", hash = "sha256:ff7a40b4860b727ab48fad6360eb351cc1b33cbf9b15a0f689ca5353e9463324"},
+    {file = "Pygments-2.6.1.tar.gz", hash = "sha256:647344a061c249a3b74e230c739f434d7ea4d8b1d5f3721bc0f3558049b38f44"},
 ]
 pyyaml = [
     {file = "PyYAML-5.3-cp27-cp27m-win32.whl", hash = "sha256:940532b111b1952befd7db542c370887a8611660d2b9becff75d39355303d82d"},
@@ -98,6 +171,10 @@ pyyaml = [
     {file = "PyYAML-5.3-cp38-cp38-win32.whl", hash = "sha256:70024e02197337533eef7b85b068212420f950319cc8c580261963aefc75f811"},
     {file = "PyYAML-5.3-cp38-cp38-win_amd64.whl", hash = "sha256:cb1f2f5e426dc9f07a7681419fe39cee823bb74f723f36f70399123f439e9b20"},
     {file = "PyYAML-5.3.tar.gz", hash = "sha256:e9f45bd5b92c7974e59bcd2dcc8631a6b6cc380a904725fce7bc08872e691615"},
+]
+rich = [
+    {file = "rich-5.2.1-py3-none-any.whl", hash = "sha256:a3c9332f47ca9469e523349fedb132b5b319ab14c2f9e74df87832add28be311"},
+    {file = "rich-5.2.1.tar.gz", hash = "sha256:d791263dc505b635b75249dfc1991510d7eabb27047652e3209e98384365c9c9"},
 ]
 "ruamel.yaml" = [
     {file = "ruamel.yaml-0.16.10-py2.py3-none-any.whl", hash = "sha256:0962fd7999e064c4865f96fb1e23079075f4a2a14849bcdc5cdba53a24f9759b"},
