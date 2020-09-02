@@ -4,7 +4,7 @@ description = "Radically simple IT automation"
 name = "ansible"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
-version = "2.9.12"
+version = "2.9.13"
 
 [[package]]
 category = "dev"
@@ -132,13 +132,13 @@ python-versions = "*"
 version = "3.7.4.2"
 
 [metadata]
-content-hash = "aa8317aa30a6a28809af000bb208893948818ed131b253e526489143e026fa57"
+content-hash = "18ee4489d48722817ce58bda8e3246895c4e5e2b8e0debfff46096af662a82e8"
 lock-version = "1.0"
 python-versions = "^3.6"
 
 [metadata.files]
 ansible = [
-    {file = "ansible-2.9.12.tar.gz", hash = "sha256:7e95ddf719190b068fafc7d7c7877c218054cc5da4f6d9d794faf7bc66dab774"},
+    {file = "ansible-2.9.13.tar.gz", hash = "sha256:3ab21588992fbfe9de3173aefd63da1267dc12892a60f5cfdc055fe19c549644"},
 ]
 ansible-lint = [
     {file = "ansible-lint-4.3.4.tar.gz", hash = "sha256:ef9390865563f6e0b6a1ebf2f53cfad5008da998cf0f53e54fdcd8c3a15b7285"},
