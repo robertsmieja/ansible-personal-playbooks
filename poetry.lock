@@ -12,7 +12,7 @@ description = "Checks playbooks for practices and behaviour that could potential
 name = "ansible-lint"
 optional = false
 python-versions = ">=3.6"
-version = "4.3.4"
+version = "4.3.5"
 
 [package.dependencies]
 ansible = ">=2.8"
@@ -132,7 +132,7 @@ python-versions = "*"
 version = "3.7.4.2"
 
 [metadata]
-content-hash = "18ee4489d48722817ce58bda8e3246895c4e5e2b8e0debfff46096af662a82e8"
+content-hash = "b51690dc476de6052e75fc05eeca35a9e4dd05190862efdd8f292143984c6c39"
 lock-version = "1.0"
 python-versions = "^3.6"
 
@@ -141,8 +141,8 @@ ansible = [
     {file = "ansible-2.9.13.tar.gz", hash = "sha256:3ab21588992fbfe9de3173aefd63da1267dc12892a60f5cfdc055fe19c549644"},
 ]
 ansible-lint = [
-    {file = "ansible-lint-4.3.4.tar.gz", hash = "sha256:ef9390865563f6e0b6a1ebf2f53cfad5008da998cf0f53e54fdcd8c3a15b7285"},
-    {file = "ansible_lint-4.3.4-py2.py3-none-any.whl", hash = "sha256:bbe81074615ba80e0eb65ffea1ce3c9adb143574b38f3520371e4df63b4300bd"},
+    {file = "ansible-lint-4.3.5.tar.gz", hash = "sha256:bec230cf5fcc4d976246d4170da3ae289715f99185529ca8bba4b3c173035656"},
+    {file = "ansible_lint-4.3.5-py2.py3-none-any.whl", hash = "sha256:4eabcea3572a9a3d85c6abefe04ca80ec8b306f50116ee6a9d118b4f2fd5e192"},
 ]
 colorama = [
     {file = "colorama-0.4.3-py2.py3-none-any.whl", hash = "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff"},
