@@ -25,21 +25,36 @@ PyYAML = "*"
 
 [[package]]
 name = "ansible-lint"
-version = "4.3.7"
+version = "5.0.1"
 description = "Checks playbooks for practices and behaviour that could potentially be improved"
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-ansible = ">=2.8"
+enrich = ">=1.2.6"
+packaging = "*"
 pyyaml = "*"
-rich = "*"
+rich = ">=9.5.1"
 "ruamel.yaml" = [
     {version = ">=0.15.34,<1", markers = "python_version < \"3.7\""},
     {version = ">=0.15.37,<1", markers = "python_version >= \"3.7\""},
 ]
 typing-extensions = {version = "*", markers = "python_version < \"3.8\""}
+wcmatch = ">=7.0"
+
+[package.extras]
+community = ["ansible (>=2.10)"]
+core = ["ansible-base (>=2.10)"]
+yamllint = ["yamllint (>=1.25.0)"]
+
+[[package]]
+name = "bracex"
+version = "2.1.1"
+description = "Bash style brace expander."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "cffi"
@@ -97,6 +112,20 @@ description = "A backport of the dataclasses module for Python 3.6"
 category = "dev"
 optional = false
 python-versions = ">=3.6, <3.7"
+
+[[package]]
+name = "enrich"
+version = "1.2.6"
+description = "enrich"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+rich = ">=9.5.1"
+
+[package.extras]
+test = ["mock (>=3.0.5)", "pytest-cov (>=2.7.1)", "pytest-mock (>=3.3.1)", "pytest-plus", "pytest-xdist (>=1.29.0)", "pytest (>=5.4.0)"]
 
 [[package]]
 name = "jinja2"
@@ -166,7 +195,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "rich"
-version = "6.0.0"
+version = "9.11.0"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 category = "dev"
 optional = false
@@ -175,7 +204,7 @@ python-versions = ">=3.6,<4.0"
 [package.dependencies]
 colorama = ">=0.4.0,<0.5.0"
 commonmark = ">=0.9.0,<0.10.0"
-dataclasses = {version = ">=0.7,<0.8", markers = "python_version >= \"3.6\" and python_version < \"3.7\""}
+dataclasses = {version = ">=0.7,<0.9", markers = "python_version >= \"3.6\" and python_version < \"3.7\""}
 pygments = ">=2.6.0,<3.0.0"
 typing-extensions = ">=3.7.4,<4.0.0"
 
@@ -221,10 +250,21 @@ category = "dev"
 optional = false
 python-versions = "*"
 
+[[package]]
+name = "wcmatch"
+version = "8.1.1"
+description = "Wildcard/glob file name matcher."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+bracex = ">=2.1.1"
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "4a95361f7414dbcf5dbaf1040a2a91811c49cd089daf523bc31534de8efc5fb9"
+content-hash = "ad3f27a919e46885556f1494bb19947b0faac0fe28b14e02d0eb4947cd396f1b"
 
 [metadata.files]
 ansible = [
@@ -234,8 +274,12 @@ ansible-base = [
     {file = "ansible-base-2.10.5.tar.gz", hash = "sha256:33ae323923b841f3d822f355380ce7c92610440362efeed67b4b39db41e555af"},
 ]
 ansible-lint = [
-    {file = "ansible-lint-4.3.7.tar.gz", hash = "sha256:1012fc3f5c4c0c58eece515860f19c34c5088faa5be412eec6fae5b45bda9c4f"},
-    {file = "ansible_lint-4.3.7-py2.py3-none-any.whl", hash = "sha256:300e841f690b556a08d44902d6414283dc101079b27909e3a892f1cf1d10d7ff"},
+    {file = "ansible-lint-5.0.1.tar.gz", hash = "sha256:809655a72960754bf9afb286b7089a7cd4e0a10b80382a56ff7ad42bf056c895"},
+    {file = "ansible_lint-5.0.1-py3-none-any.whl", hash = "sha256:9d566ce02c5c23efd9bc0d2f24d69e54eb0ca6a0231b77d7dc1c255774e9d2f6"},
+]
+bracex = [
+    {file = "bracex-2.1.1-py3-none-any.whl", hash = "sha256:64e2a6d14de9c8e022cf40539ac8468ba7c4b99550a2b05fc87fd20e392e568f"},
+    {file = "bracex-2.1.1.tar.gz", hash = "sha256:01f715cd0ed7a622ec8b32322e715813f7574de531f09b70f6f3b2c10f682425"},
 ]
 cffi = [
     {file = "cffi-1.14.3-2-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:3eeeb0405fd145e714f7633a5173318bd88d8bbfc3dd0a5751f8c4f70ae629bc"},
@@ -310,6 +354,10 @@ cryptography = [
 dataclasses = [
     {file = "dataclasses-0.7-py3-none-any.whl", hash = "sha256:3459118f7ede7c8bea0fe795bff7c6c2ce287d01dd226202f7c9ebc0610a7836"},
     {file = "dataclasses-0.7.tar.gz", hash = "sha256:494a6dcae3b8bcf80848eea2ef64c0cc5cd307ffc263e17cdf42f3e5420808e6"},
+]
+enrich = [
+    {file = "enrich-1.2.6-py3-none-any.whl", hash = "sha256:ed0b3ac33495cc95f1ccafaf6c7ec0a0fcabb20f7f7a90121f37eb83a85bf82b"},
+    {file = "enrich-1.2.6.tar.gz", hash = "sha256:0e99ff57d87f7b5def0ca79917e88fb9351aa0d52e228ee38bff7cd858315fe4"},
 ]
 jinja2 = [
     {file = "Jinja2-2.11.2-py2.py3-none-any.whl", hash = "sha256:f0a4641d3cf955324a89c04f3d94663aa4d638abe8f733ecd3582848e1c37035"},
@@ -399,8 +447,8 @@ pyyaml = [
     {file = "PyYAML-5.3.tar.gz", hash = "sha256:e9f45bd5b92c7974e59bcd2dcc8631a6b6cc380a904725fce7bc08872e691615"},
 ]
 rich = [
-    {file = "rich-6.0.0-py3-none-any.whl", hash = "sha256:75bb80a52a550424a9f36bfdc57dc2977a2b8d0a1eb3b011df258c017d8ba322"},
-    {file = "rich-6.0.0.tar.gz", hash = "sha256:53c683a79e3f949d675b1d04e6fe3ccd53fad97aa7e2f6a83f2985502663f420"},
+    {file = "rich-9.11.0-py3-none-any.whl", hash = "sha256:a8ee22199562278d2f78148cacb2f9460ccac362cd4a40f705505b41daae60e0"},
+    {file = "rich-9.11.0.tar.gz", hash = "sha256:f8f08fdac6bd67dc2dd7fe976da702d748487aa9eb5d050c48b2321bc67ed659"},
 ]
 "ruamel.yaml" = [
     {file = "ruamel.yaml-0.16.10-py2.py3-none-any.whl", hash = "sha256:0962fd7999e064c4865f96fb1e23079075f4a2a14849bcdc5cdba53a24f9759b"},
@@ -435,4 +483,8 @@ typing-extensions = [
     {file = "typing_extensions-3.7.4.2-py2-none-any.whl", hash = "sha256:f8d2bd89d25bc39dabe7d23df520442fa1d8969b82544370e03d88b5a591c392"},
     {file = "typing_extensions-3.7.4.2-py3-none-any.whl", hash = "sha256:6e95524d8a547a91e08f404ae485bbb71962de46967e1b71a0cb89af24e761c5"},
     {file = "typing_extensions-3.7.4.2.tar.gz", hash = "sha256:79ee589a3caca649a9bfd2a8de4709837400dfa00b6cc81962a1e6a1815969ae"},
+]
+wcmatch = [
+    {file = "wcmatch-8.1.1-py3-none-any.whl", hash = "sha256:9b05ec84da6c711d14191d30c19dffba0e31cdbdaec8819e44c75c8ef83cfadc"},
+    {file = "wcmatch-8.1.1.tar.gz", hash = "sha256:7ba09191f9582e82d864829bdfbab02df46e26a46a304e57c7fe5652f07f297a"},
 ]
