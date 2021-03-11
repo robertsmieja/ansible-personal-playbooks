@@ -25,7 +25,7 @@ PyYAML = "*"
 
 [[package]]
 name = "ansible-lint"
-version = "5.0.2"
+version = "5.0.3"
 description = "Checks playbooks for practices and behaviour that could potentially be improved"
 category = "dev"
 optional = false
@@ -264,7 +264,7 @@ bracex = ">=2.1.1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "daee575be7dfb8725074a6c9915e60260e06863d07b425cd428d1e175a226ee6"
+content-hash = "bdccb1b577914f922a6eea7226e89c2c7f7730858204a0325ce474263c1803f3"
 
 [metadata.files]
 ansible = [
@@ -274,8 +274,8 @@ ansible-base = [
     {file = "ansible-base-2.10.5.tar.gz", hash = "sha256:33ae323923b841f3d822f355380ce7c92610440362efeed67b4b39db41e555af"},
 ]
 ansible-lint = [
-    {file = "ansible-lint-5.0.2.tar.gz", hash = "sha256:be0b7f2aa368cd33da38dfc8d7d4b26c166ea3b6db9770eeab97530533258f8e"},
-    {file = "ansible_lint-5.0.2-py3-none-any.whl", hash = "sha256:41a139ac50f9f60e92711b84f4be584aaf3e5d726004751640058423ef6af0c4"},
+    {file = "ansible-lint-5.0.3.tar.gz", hash = "sha256:9416eaa3080f4fa38228a3a8931a5481fe3bc5e1e3d074033a9b756325b920bd"},
+    {file = "ansible_lint-5.0.3-py3-none-any.whl", hash = "sha256:b75163d290acfaef1e5d930ec68aebd383ccc2efafe4c5f0a8d65e8900aedfc2"},
 ]
 bracex = [
     {file = "bracex-2.1.1-py3-none-any.whl", hash = "sha256:64e2a6d14de9c8e022cf40539ac8468ba7c4b99550a2b05fc87fd20e392e568f"},
